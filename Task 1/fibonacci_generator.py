@@ -13,8 +13,9 @@ def fibonacci_generator():
         yield a
         a, b = b, a + b
 
-# Example usage: Print the first 10 Fibonacci numbers
+# Print the first 10 Fibonacci numbers
 if __name__ == "__main__":
     fib = fibonacci_generator()
     for _ in range(10):
+
         print(next(fib))
