@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Home · Hangman Game{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h2>Welcome to Hangman</h2>
+  <p>This is a simple web-based Hangman game built with Flask.</p>
+
+  <div class="difficulty-selection">
+    <h3>Choose Difficulty:</h3>
+    <form action="{{ url_for('start') }}" method="post" class="difficulty-form">
+      <div class="difficulty-buttons">
+        <input type="radio" id="easy" name="difficulty" value="easy" checked>
+        <label for="easy" class="difficulty-btn easy">
+          <strong>Easy</strong>
+          <span>8 wrong attempts</span>
+        </label>
+
+        <input type="radio" id="normal" name="difficulty" value="normal">
+        <label for="normal" class="difficulty-btn normal">
+          <strong>Normal</strong>
+          <span>6 wrong attempts</span>
+        </label>
+
+        <input type="radio" id="hard" name="difficulty" value="hard">
+        <label for="hard" class="difficulty-btn hard">
+          <strong>Hard</strong>
+          <span>4 wrong attempts</span>
+        </label>
+      </div>
+
+      <button class="btn primary large" type="submit">Start Game</button>
+    </form>
+  </div>
+
+  <ol class="instructions">
+    <li>Choose your difficulty level above</li>
+    <li>Guess letters one at a time using the input or clickable buttons</li>
+    <li>You can make a limited number of wrong guesses before you lose</li>
+    <li>Try to guess the word before you run out of attempts!</li>
+  </ol>
+</section>
+{% endblock %}

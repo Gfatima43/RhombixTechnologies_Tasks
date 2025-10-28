@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Play · Hangman Game{% endblock %}
+
+{% block content %}
+<section class="game">
+  <div class="card">
+    <div class="game-header">
+      <h2>Hangman</h2>
+      <span class="difficulty-badge {{ difficulty }}">{{ difficulty|capitalize }}</span>
+    </div>
+
+    <!-- ASCII art for hangman stage -->
+    <pre class="hangman-ascii">{{ hangman_ascii }}</pre>
+
+    <!-- Partially revealed word -->
+    <p><strong>Word:</strong> <span class="word">{{ progress }}</span></p>
+
+    <!-- Remaining attempts -->
+    <p class="remaining">You have <strong>{{ remaining }}</strong> wrong attempt(s) left.</p>
+
+    <!-- Alphabet buttons -->
+    <div class="alphabet-container">
+      <h3>Choose a letter:</h3>
+      <div class="alphabet-grid">
+        {% for letter, status in letters_status.items() %}
+        <button type="button" class="alphabet-btn {{ status }}" data-letter="{{ letter }}" {% if status !='available' or
+          finished %}disabled{% endif %}>
+          {{ letter|upper }}
+        </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Summary of guessed letters -->
+    <div class="guessed-summary">
+      {% set wrong_count = (wrong_letters or [])|length %}
+      <p><strong>Wrong letters:</strong>
+        {% if wrong_count > 0 %}
+        <span class="wrong-letters">{{ wrong_letters|join(", ") }}</span>
+        {% else %}
+        <span class="muted">(none yet)</span>
+        {% endif %}
+      </p>
+    </div>
+
+    {% if finished %}
+    <!-- Game finished: show result and reveal the word -->
+    <div class="result">
+      {% if result == "win" %}
+      <p class="win">You won! 🎉 The word was <strong>{{ secret_word }}</strong>.</p>
+      {% else %}
+      <p class="lose">You lost. 💀 The word was <strong>{{ secret_word }}</strong>.</p>
+      {% endif %}
+    </div>
+
+    <div class="game-actions">
+      <form action="{{ url_for('start') }}" method="post" class="inline">
+        <button class="btn primary large" type="submit">Play Again</button>
+      </form>
+    </div>
+    {% endif %}
+
+    <!-- Hidden form for submitting letter guesses via buttons -->
+    <form id="guessForm" action="{{ url_for('guess') }}" method="post" style="display:none;">
+      <input type="hidden" name="guess" id="hiddenGuess" value="">
+    </form>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const alphabetButtons = document.querySelectorAll('.alphabet-btn:not(.disabled):not(:disabled)');
+    const hiddenInput = document.getElementById('hiddenGuess');
+    const guessForm = document.getElementById('guessForm');
+
+    alphabetButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        if (this.disabled) return;
+
+        const letter = this.dataset.letter;
+        hiddenInput.value = letter;
+        guessForm.submit();
+      });
+    });
+  });
+</script>
+{% endblock %}

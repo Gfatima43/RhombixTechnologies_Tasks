@@ -1,0 +1,377 @@
+/* Enhanced CSS for the Flask Hangman UI */
+
+:root {
+  --bg: #f7fafc;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --muted: #6b7280;
+  --radius: 10px;
+  --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  --easy: #10b981;
+  --normal: #f59e0b;
+  --hard: #ef4444;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: #0f172a;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+}
+
+.brand a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  background: #fff;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn.alt {
+  background: #f1f5f9;
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+}
+
+.btn.large {
+  padding: 12px 24px;
+  font-size: 16px;
+}
+
+.hero {
+  padding: 30px 0;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-top: 18px;
+}
+
+.hangman-ascii {
+  background: #0b1220;
+  color: #e6eef8;
+  padding: 12px;
+  border-radius: 8px;
+  overflow: auto;
+  display: inline-block;
+  margin: 16px 0;
+}
+
+.word {
+  letter-spacing: 4px;
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.flashes {
+  margin-top: 12px;
+}
+
+.flash {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.flash.info {
+  background: #ecfeff;
+  color: #064e3b;
+  border-left: 4px solid #06b6d4;
+}
+
+.flash.success {
+  background: #f0fdf4;
+  color: #14532d;
+  border-left: 4px solid #10b981;
+}
+
+.flash.warning {
+  background: #fffbeb;
+  color: #92400e;
+  border-left: 4px solid #f59e0b;
+}
+
+.flash.error {
+  background: #fff1f2;
+  color: #7f1d1d;
+  border-left: 4px solid #ef4444;
+}
+
+/* Difficulty Selection */
+.difficulty-selection {
+  margin: 24px 0;
+}
+
+.difficulty-selection h3 {
+  margin-bottom: 16px;
+}
+
+.difficulty-form {
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: var(--radius);
+}
+
+.difficulty-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.difficulty-buttons input[type="radio"] {
+  display: none;
+}
+
+.difficulty-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  background: #fff;
+}
+
+.difficulty-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.difficulty-btn.easy {
+  border-color: var(--easy);
+}
+
+.difficulty-btn.normal {
+  border-color: var(--normal);
+}
+
+.difficulty-btn.hard {
+  border-color: var(--hard);
+}
+
+.difficulty-buttons input[type="radio"]:checked+.difficulty-btn {
+  border-width: 3px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.difficulty-btn strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.difficulty-btn span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.instructions {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  line-height: 1.8;
+}
+
+/* Game Header */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.difficulty-badge {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.difficulty-badge.easy {
+  background: var(--easy);
+}
+
+.difficulty-badge.normal {
+  background: var(--normal);
+}
+
+.difficulty-badge.hard {
+  background: var(--hard);
+}
+
+/* Alphabet Grid */
+.alphabet-container {
+  margin: 24px 0;
+}
+
+.alphabet-container h3 {
+  margin-bottom: 12px;
+}
+
+.alphabet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 8px;
+  max-width: 100%;
+}
+
+.alphabet-btn {
+  aspect-ratio: 1;
+  padding: 8px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.alphabet-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.alphabet-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.alphabet-btn.available {
+  color: #2563eb;
+  border-color: #cbd5e0;
+}
+
+.alphabet-btn.correct {
+  background: #f0fdf4;
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.alphabet-btn.wrong {
+  background: #fff1f2;
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* Guessed Summary */
+.guessed-summary {
+  margin: 20px 0;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.guessed-summary p {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.correct-letters {
+  color: var(--easy);
+  font-weight: bold;
+}
+
+.wrong-letters {
+  color: var(--hard);
+  font-weight: bold;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Remaining and Result */
+.remaining {
+  font-size: 16px;
+  margin: 12px 0;
+}
+
+.result {
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.result .win {
+  color: #14532d;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.result .lose {
+  color: #7f1d1d;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.game-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.inline {
+  display: inline;
+}
+
+.footer {
+  color: var(--muted);
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px 0;
+}
