@@ -12,6 +12,8 @@ geolocation-tracker/
 ├── README.md                   # Project documentation
 │
 ├── templates/
+│   └── about.html             # About this project
+│   └── base.html              # Including header, footer
 │   └── index.html             # Main HTML template
 │
 └── static/
@@ -42,6 +44,8 @@ geolocation-tracker/
 
 3. **Place the files in their respective directories:**
    - `app.py` in the root directory
+   - `about.html` in the `templates/` folder
+   - `base.html` in the `templates/` folder
    - `index.html` in the `templates/` folder
    - `style.css` in the `static/css/` folder
    - `map.js` in the `static/js/` folder
@@ -111,5 +115,6 @@ The application exposes a REST API endpoint:
 - The application runs in debug mode by default - disable for production use
 
 ## License
+
 
 Free to use and modify for personal and commercial projects.
