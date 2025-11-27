@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}About — IP Geolocation Tracker{% endblock %}
+
+{% block content %}
+<main class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title">About IP Geolocation Tracker</h2>
+                        <p class="text-muted">A simple, developer-friendly tool to locate IP addresses and track
+                            live GPS coordinates on a map.</p>
+
+                        <h5 class="mt-4">What it does</h5>
+                        <ul>
+                            <li>Look up geographic information (city, region, country, ISP, timezone) for any IP
+                                address.</li>
+                            <li>Show a map marker for the IP location and a popup with details.</li>
+                            <li>Start live GPS tracking from your device — see your moving location on the map with
+                                accuracy.</li>
+                            <li>While live tracking runs, the information card updates coordinates and (optionally)
+                                resolves the current place.</li>
+                        </ul>
+
+                        <h5 class="mt-4">How it works</h5>
+                        <p>The app uses a server-side endpoint (`/api/locate`) which calls a free IP geolocation
+                            service (<code>ip-api.com</code>) to retrieve IP information. The frontend displays
+                            results using Leaflet.js for interactive maps and the browser Geolocation API for live
+                            GPS tracking.</p>
+
+                        <h5 class="mt-4">Notes & Privacy</h5>
+                        <ul>
+                            <li>The IP lookup is performed server-side to avoid exposing API keys and to respect
+                                rate limits.</li>
+                            <li>Live GPS tracking requires browser permission; location data is handled client-side
+                                for display and not stored by the demo server.</li>
+                            <li>Reverse geocoding (to resolve coordinates into city/region/country during live
+                                tracking) uses OpenStreetMap's Nominatim service; avoid heavy automated requests.
+                            </li>
+                        </ul>
+
+                        <h5 class="mt-4">Run locally</h5>
+                        <p>From the project folder run:</p>
+                        <pre><code>python app.py</code></pre>
+                        <p>Open <code>http://localhost:5000</code> in your browser.</p>
+
+                        <h5 class="mt-4">Contact & Contribution</h5>
+                        <p>Built as a demo project. Feel free to improve the UI, add caching, or swap geolocation
+                            providers.</p>
+
+                        <div class="mt-4 text-end">
+                            <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
