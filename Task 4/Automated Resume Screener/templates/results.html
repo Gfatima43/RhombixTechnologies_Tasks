@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Screening Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <div class="container py-5">
+        <h1 class="mb-4">Screening Results</h1>
+
+        {% if email_sent %}
+        <div class="alert alert-success">
+            <strong>Email sent!</strong> Results have been sent to {{ email_to }}.
+        </div>
+        {% elif email_to %}
+        <div class="alert info">
+            Email address provided: {{ email_to }}
+        </div>
+        {% endif %}
+
+        <p><a class="btn btn-outline-secondary" href="/">← Back</a>
+            <a class="btn btn-success" href="{{ report_link }}">Download Excel Report</a>
+        </p>
+
+        <table class="table table-striped">
+             <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Keywords</th>
+                <th>Skills</th>
+                <th>Years</th>
+                <th>Education</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if results %}
+                {% for r in results %}
+                {% if criteria %}
+                <tr>
+                    <td>{{ r.filename }}</td>
+                    <td>{{ criteria.keywords if criteria.keywords else 'None' }}</td>
+                    <td>{{ criteria.skills if criteria.skills else 'None' }}</td>
+                    <td>{{ criteria.min_years }}</td>
+                    <td>{{ criteria.education if criteria.education else 'Any' }}</td>
+                    <td><strong>{{ r.score }}</strong></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" style="text-align: center;">No results found</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    </div>
+</body>
+
+</html>
